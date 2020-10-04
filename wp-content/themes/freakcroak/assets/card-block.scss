@@ -1,0 +1,97 @@
+.card-block {
+  &.theme-light {
+    background-color: white;
+    color: black;
+  }
+
+  &.theme-dark {
+    background-color: black;
+    color: white;
+  }
+
+  .title {}
+
+  .item {
+    .info-content {
+      box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 4px 5px 0 rgba(0, 0, 0, 0.14);
+      background-color: #fafafa;
+
+      .image {
+        position: relative;
+
+        .category {
+          position: absolute;
+          top: 0;
+          right: 0;
+          background-color: #5355a1;
+          padding: 10px;
+          color: white;
+        }
+      }
+
+      .content {
+        padding: 20px 0 0;
+
+        .title {
+          margin: 0;
+          font-size: 18px;
+          font-weight: 600;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: 1.33;
+          letter-spacing: 0.13px;
+          color: #3d3d3d;
+          padding: 0 20px 0;
+        }
+
+        .info-city {
+          font-size: 17px;
+          font-weight: normal;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: 1.53;
+          letter-spacing: normal;
+          color: #18465c;
+          padding: 0 20px 0;
+        }
+
+        .location {
+          font-size: 17px;
+          font-weight: normal;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: 1.53;
+          letter-spacing: normal;
+          color: #18465c;
+          padding: 0 20px 0;
+        }
+
+        .cta {
+          display: inline-block;
+          width: 100%;
+          color: white;
+          text-align: center;
+          background: -webkit-linear-gradient(left, #0c4680, #5355a1);
+          background: -o-linear-gradient(left, #0c4680, #5355a1);
+          background: linear-gradient(to right, #0c4680, #5355a1);
+          text-decoration: none;
+          padding: 10px;
+
+          &:hover {
+            background: -webkit-linear-gradient(left, #5355a1, #0c4680);
+            background: -o-linear-gradient(left, #5355a1, #0c4680);
+            background: linear-gradient(to right, #5355a1, #0c4680);
+          }
+        }
+
+        * + * {
+          margin-top: 10px;
+        }
+
+        * + .cta {
+          margin-top: 86px;
+        }
+      }
+    }
+  }
+}

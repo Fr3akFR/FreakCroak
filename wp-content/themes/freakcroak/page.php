@@ -1,38 +1,32 @@
 <?php
+
 /**
- * Template Name: Page (Default)
- * Description: Page template with Sidebar on the left side
+ * @file
+ * The template for displaying all pages.
  *
+ * This is the template that displays all pages by default.
+ * Please note that this is the WordPress construct of pages
+ * and that other 'pages' on your WordPress site will use a
+ * different template.
+ *
+ * To generate specific templates for your pages you can use:
+ * /mytheme/templates/page-mypage.twig
+ * (which will still route through this PHP file)
+ * OR
+ * /mytheme/page-mypage.php
+ * (in which case you'll want to duplicate this file and save to the above path)
+ *
+ * Methods for TimberHelper can be found in the /lib sub-directory
+ *
+ * @package WordPress
+ * @subpackage Timber
+ * @since Timber 0.1
  */
 
-get_header();
+use Timber\Post;
 
-the_post();
-?>
-<div class="row">
-	<div class="col-md-8 order-md-2 col-sm-12">
-		<div id="post-<?php the_ID(); ?>" <?php post_class( 'content' ); ?>>
-			<h1 class="entry-title"><?php the_title(); ?></h1>
-			<?php
-				the_content();
-				
-				wp_link_pages( array(
-					'before' => '<div class="page-links">' . __( 'Pages:', 'freakcroak' ),
-					'after'  => '</div>',
-				) );
-				edit_post_link( __( 'Edit', 'freakcroak' ), '<span class="edit-link">', '</span>' );
-			?>
-		</div><!-- /#post-<?php the_ID(); ?> -->
-		<?php
-			// If comments are open or we have at least one comment, load up the comment template
-			if ( comments_open() || get_comments_number() ) :
-				comments_template();
-			endif;
-		?>
-	</div><!-- /.col -->
-	<?php
-		get_sidebar();
-	?>
-</div><!-- /.row -->
-<?php
-get_footer();
+$context = Timber::context();
+
+$timber_post     = new Post();
+$context['post'] = $timber_post;
+Timber::render(['page-' . $timber_post->post_name . '.twig', 'page.twig'], $context);

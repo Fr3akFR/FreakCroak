@@ -1,0 +1,27 @@
+{#
+/**
+ * Default Page
+ *
+ * This is the template that displays the Default Page.
+ */
+#}
+{% extends "layouts/main.twig" %}
+
+{% block content %}
+{% set page_url = _context.page_url  %}
+	{% if page_url matches '{blog-list}' or page_url matches '{news-list}' or page_url matches '{resource-list}'  or page_url matches '{case-studies}'	or page_url matches '{white-papers}' %}
+			{% set load_before = 'facetwp-custom' %}
+	{% endif %}
+
+	<div class="content-wrapper">
+		<article class="post-type-{{post.post_type}} {{ load_before }}" id="post-{{post.ID}}">
+			<section class="article-content">
+				<h1 class="page-title d-none">{{post.title}}</h1>
+				<div id="inner-container-{{post.ID}}" class="article-body">
+					{{post.content}}
+ 				</div>
+			</section>
+		</article>
+	</div>
+	<!-- /content-wrapper -->
+{% endblock %}

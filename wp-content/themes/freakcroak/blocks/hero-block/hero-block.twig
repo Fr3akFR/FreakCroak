@@ -1,0 +1,32 @@
+{% set id = 'hero-' ~ block.id %}
+
+<div class="hero-block w-100" id="{{ id }}">
+  <div class="hero-wrapper">
+    <div class="inner-hero">
+      {% if content.dynamic_text_item %}
+        <div class="card-info overflow-hidden">
+          <div class="card-info-content">
+            {% for item in content.dynamic_text_item %}
+              <div class="card-info-wrapper" data-slide="{{ loop.index }}">
+                <h2 class="title h1 m-0 text-white">{{ item.title }}</h2>
+              </div>
+            {% endfor %}
+          </div>
+
+          <div class="controls">
+            <button class="left"><ion-icon name="chevron-back-outline"></ion-icon></button>
+            <button class="right"><ion-icon name="chevron-forward-outline"></ion-icon></button>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <picture class="background-image">
+    <source srcset="{{ content.image_desktop.url }}" media="all and (min-width: 1440px)" type="image/jpeg">
+    <source srcset="{{ content.image_landscape.url }}" media="all and (min-width: 1024px) and (max-width: 1439px)" type="image/jpeg">
+    <source srcset="{{ content.image_tablet.url }}" media="all and (min-width: 768px) and (max-width: 1023px)" type="image/jpeg">
+    <source srcset="{{ content.image_mobile.url }}" media="all and (max-width: 767px)" type="image/jpeg">
+    <img class="img-fluid" src="{{ content.image_mobile.url }}" alt="{{ content.image_mobile.alt }}" typeof="foaf:Image">
+  </picture>
+</div>

@@ -1,5 +1,8 @@
 <?php
 
+use Timber\Menu;
+use Timber\Term;
+
 /**
  * Include Theme Customizer
  *
@@ -13,7 +16,7 @@ if ( is_readable( $theme_customizer ) ) {
 
 /**
  * Include Support for wordpress.com-specific functions.
- * 
+ *
  * @since v1.0
  */
 $theme_wordpresscom = get_template_directory() . '/inc/wordpresscom.php';
@@ -96,6 +99,26 @@ if ( ! function_exists( 'wp_body_open' ) ) :
 		do_action( 'wp_body_open' );
 	}
 endif;
+
+/**
+ * Customizer editor.
+ */
+function register_gutenberg_mods() {
+  require_once get_template_directory() . '/inc/full-width-editor-gutenberg.php';
+}
+
+add_action('after_setup_theme', 'register_gutenberg_mods');
+
+/**
+ * Implements hook_body_classes().
+ */
+function freakcroak_body_classes($classes) {
+  $classes[] = 'd-flex flex-column';
+
+  return $classes;
+}
+
+add_filter('body_class', 'freakcroak_body_classes');
 
 
 /**
@@ -403,9 +426,9 @@ if ( ! function_exists( 'freakcroak_comment' ) ) :
 		$aria_req = ( $req ? " aria-required='true' required" : '' );
 		$consent  = ( empty( $commenter['comment_author_email'] ) ? '' : ' checked="checked"' );
 		$fields   = array(
-			'author'  => '<div class="form-group"><label for="author">' . __( 'Name', 'freakcroak' ) . ( $req ? '<span class="required">*</span>' : '' ) . '</label>' . 
+			'author'  => '<div class="form-group"><label for="author">' . __( 'Name', 'freakcroak' ) . ( $req ? '<span class="required">*</span>' : '' ) . '</label>' .
 						'<input type="text" id="author" name="author" class="form-control" value="' . esc_attr( $commenter['comment_author'] ) . '"' . $aria_req . ' /></div>',
-			'email'   => '<div class="form-group"><label for="email">' . __( 'Email', 'freakcroak' ) . ( $req ? '<span class="required">*</span>' : '' ) . '</label>' . 
+			'email'   => '<div class="form-group"><label for="email">' . __( 'Email', 'freakcroak' ) . ( $req ? '<span class="required">*</span>' : '' ) . '</label>' .
 						'<input type="email" id="email" name="email" class="form-control" value="' . esc_attr( $commenter['comment_author_email'] ) . '"' . $aria_req . ' /></div>',
 			'url'     => '',
 			'cookies' => '<p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes"' . $consent . ' /> ' .
@@ -479,6 +502,8 @@ function freakcroak_scripts_loader() {
 	// 1. Styles
 	wp_enqueue_style( 'style', get_template_directory_uri() . '/style.css', false, $theme_version, 'all' );
 	wp_enqueue_style( 'main', get_template_directory_uri() . '/assets/css/main.css', false, $theme_version, 'all' ); // main.scss: Compiled Framework source + custom styles
+	wp_enqueue_style( 'slick-css', '//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css', false, $theme_version, 'all' );
+
 
 	if ( is_rtl() ) {
 		wp_enqueue_style( 'rtl', get_template_directory_uri() . '/assets/css/rtl.css', false, $theme_version, 'all' );
@@ -486,9 +511,22 @@ function freakcroak_scripts_loader() {
 
 	// 2. Scripts
 	wp_enqueue_script( 'mainjs', get_template_directory_uri() . '/assets/js/main.bundle.js', array( 'jquery' ), $theme_version, true );
+	wp_enqueue_script( 'ionicons', 'https://unpkg.com/ionicons@5.1.2/dist/ionicons.js', array( 'jquery' ), $theme_version, true );
+	wp_enqueue_script( 'slick-js', '//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js', array( 'jquery' ), $theme_version, true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'freakcroak_scripts_loader' );
+
+$timber = new Timber\Timber();
+
+/**
+ * Load Blocks preprocess files.
+ */
+$preprocess_files = array_slice(scandir(__DIR__ . '/blocks-preprocess/'), 2);
+foreach ($preprocess_files as $preprocess_file) {
+  // Load preprocess files.
+  require_once __DIR__ . '/blocks-preprocess/' . $preprocess_file;
+}

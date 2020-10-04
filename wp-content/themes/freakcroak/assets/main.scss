@@ -95,6 +95,9 @@ $font-family-base:        $font-family-sans-serif !default;
 @import "../node_modules/bootstrap/scss/spinners";
 @import "../node_modules/bootstrap/scss/utilities";
 @import "../node_modules/bootstrap/scss/print";
+@import "./hero";
+@import "./circled-image-and-text-block";
+@import "./card-block";
 
 
 /**
@@ -116,12 +119,12 @@ body.admin-bar {
 	#header.fixed-top {
 		top: 32px;
 	}
-	
+
 	.edit-link a {
 		color: #FFF !important;
 		font-weight: normal !important;
 		text-decoration: none !important;
-		
+
 		&::before {
 			content: '\270E';
 			display: inline-block;
@@ -253,7 +256,7 @@ body.admin-bar {
 	list-style: none;
 	margin: 0 auto;
 	width: 68.9%;
-		
+
 	> li.comment {
 		margin: 0 0 1.625em;
 		padding: 1.625em;
@@ -281,7 +284,7 @@ body.admin-bar {
 		top: 0;
 		left: -102px;
 	}
-	
+
 }
 
 
@@ -344,7 +347,7 @@ body.admin-bar {
  */
 
 @media (max-width: breakpoint-max(sm)) {
-	
+
 	#sidebar {
 		margin-top: 60px;
 	}

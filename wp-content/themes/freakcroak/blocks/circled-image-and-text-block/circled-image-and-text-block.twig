@@ -1,0 +1,27 @@
+{% set id = 'circled-image-and-text-' ~ block.id %}
+
+<div class="circled-image-and-text-block container-fluid theme-{{ content.theme }}" id="{{ id }}">
+  <div class="row">
+    <h2 class="title h1 w-100">{{ content.title }}</h2>
+
+    {% if content.circled_image_and_text_item %}
+      <div class="container-fluid">
+        <div class="row">
+          {% for item in content.circled_image_and_text_item %}
+            {% if item|length > 3 %}
+              {% set lenght = 'col-xl-3' %}
+              {% else %}
+              {% set lenght = 'col-xl-4' %}
+            {% endif %}
+            <div class="col-12 col-md-6 col-lg-4 {{ lenght }} d-flex flex-column align-items-center item">
+              <button class="circled-image">
+                <img src="{{ item.circled_image.url }}" alt="{{ item.circled_image.alt }}" width="180" height="180">
+              </button>
+              <div class="body">{{ item.text }}</div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>

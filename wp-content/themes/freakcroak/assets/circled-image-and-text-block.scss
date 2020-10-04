@@ -1,0 +1,68 @@
+.circled-image-and-text-block {
+  &.theme-light {
+    color: black;
+    background-color: white;
+  }
+
+  &.theme-dark {
+    color: white;
+    background-color: black;
+  }
+
+  .title {
+
+  }
+
+  .item {
+    .circled-image {
+      position: relative;
+      background: 0 0;
+      border: none;
+      width: 180px;
+      height: 180px;
+      padding: 0;
+      border-radius: 50%;
+      z-index: 2;
+
+      img {
+        position: relative;
+        z-index: 2;
+      }
+
+      &:focus {
+        outline: none;
+      }
+
+      &:after {
+        content: '';
+        display: block;
+        width: 180px;
+        height: 180px;
+        background-color: gray;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        border-radius: 50%;
+        transition: all .3s;
+      }
+
+      &:hover {
+        &:after {
+          content: '';
+          display: block;
+          width: 200px;
+          height: 200px;
+          background-color: lightgray;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          z-index: 1;
+          border-radius: 50%;
+        }
+      }
+    }
+  }
+}

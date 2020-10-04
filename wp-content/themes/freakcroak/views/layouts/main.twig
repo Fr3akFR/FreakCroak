@@ -1,0 +1,46 @@
+{#
+/**
+ * Main Layout
+ *
+ * This is the template that displays the site's Main Layout.
+ */
+#}
+<!--[if lt IE 9]><html class="no-js no-svg ie lt-ie9 lt-ie8 lt-ie7" {{ site.language_attributes }}> <![endif]-->
+<!--[if IE 9]><html class="no-js no-svg ie ie9 lt-ie9 lt-ie8" {{ site.language_attributes }}> <![endif]-->
+<!--[if gt IE 9]><html class="no-js no-svg" {{ site.language_attributes }}> <![endif]-->
+<!DOCTYPE html>
+<html {{ function('language_attributes') }}>
+  <head>
+    <meta charset="{{ function('bloginfo', 'charset')}} ">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{{ function('bloginfo', 'name') }} {{ function('wp_title') }}</title>
+
+    <link rel="profile" href="http://gmpg.org/xfn/11">
+    <link rel="pingback" href="{{ function('bloginfo', 'pingback_url') }}">
+
+    {{ function('wp_head') }}
+  </head>
+
+  {# Set Default Main Menu is not defined #}
+  {% if not main_menu %}
+    {% set main_menu = 'primary' %}
+  {% endif %}
+
+  <body {{ function('body_class') }}>
+    <div id="{{ function('get_post_type') }}-{{ function('the_ID') }}">
+
+      <header id="site-header">
+      </header>
+
+        {% block content %}
+
+        {% endblock %}
+
+      <footer id="site-footer" role="contentinfo" class="wp-block-kioken-rowlayout fp-auto-height header-footer-group bg-dark-gray">
+      </footer><!-- #site-footer -->
+
+      {{ function('wp_footer') }}
+    </div>
+  </body>
+</html>

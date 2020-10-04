@@ -1,0 +1,103 @@
+{% extends "tease.twig" %}
+
+{% block content %}
+
+	<div class="tease-item">
+		{% set image_desktop = Image(post.custom['image_preview_bg_img_desktop']).src('full') %}
+		{% set image_tablet_landscape = Image(post.custom['image_preview_bg_img_tablet_ldscp']).src('full') %}
+		{% set image_tablet = Image(post.custom['image_preview_bg_img_tablet']).src('full') %}
+		{% set image_mobile = Image(post.custom['image_preview_bg_img_mobile']).src('full') %}
+
+		{% if (image_desktop or image_tablet_landscape or image_tablet or image_mobile) %}
+			{# Find the nearest breakpoint if mobile background is empty and copy the value. #}
+			{% if not image_mobile %}
+				{% if image_tablet %}
+					{% set image_mobile = image_tablet %}
+				{% endif %}
+
+				{% if not image_mobile and image_tablet_landscape %}
+					{% set image_mobile = image_tablet_landscape %}
+				{% endif %}
+
+				{% if not image_mobile and image_desktop %}
+					{% set image_mobile = image_desktop %}
+				{% endif %}
+			{% endif %}
+
+			{# Find the nearest breakpoint if tablet background is empty and copy the value. #}
+			{% if not image_tablet %}
+				{% if image_tablet_landscape %}
+					{% set image_tablet = image_tablet_landscape %}
+				{% endif %}
+
+				{% if not image_tablet and image_desktop %}
+					{% set image_tablet = image_desktop %}
+				{% endif %}
+
+				{% if not image_tablet and image_mobile %}
+					{% set image_tablet = image_mobile %}
+				{% endif %}
+			{% endif %}
+
+			{# Find the nearest breakpoint if tablet landscape background is empty and copy the value. #}
+			{% if not image_tablet_landscape %}
+				{% if image_desktop %}
+					{% set image_tablet_landscape = image_desktop %}
+				{% endif %}
+
+				{% if not image_tablet_landscape and image_tablet %}
+					{% set image_tablet_landscape = image_tablet %}
+				{% endif %}
+
+				{% if not image_tablet_landscape and image_mobile %}
+					{% set image_tablet_landscape = image_mobile %}
+				{% endif %}
+			{% endif %}
+
+			{# Find the nearest breakpoint if desktop background is empty and copy the value. #}
+			{% if not image_desktop %}
+				{% if image_tablet_landscape %}
+					{% set image_desktop = image_tablet_landscape %}
+				{% endif %}
+
+				{% if not image_desktop and image_tablet %}
+					{% set image_desktop = image_tablet %}
+				{% endif %}
+
+				{% if not image_desktop and image_mobile %}
+					{% set image_desktop = image_mobile %}
+				{% endif %}
+			{% endif %}
+
+			<picture class="img">
+				<!--[if IE 9]><video style="display: none;"><![endif]-->
+				<source srcset="{{ image_desktop}}" media="(min-width: 1440px)">
+
+				<source srcset="{{ image_tablet_landscape }}" media="(min-width: 1024px) and (max-width: 1439px)">
+
+				<source srcset="{{ image_tablet }}" media="(min-width: 768px) and (max-width: 1023px)">
+
+				<source srcset="{{ image_mobile }}" media="(max-width: 767px)">
+				<!--[if IE 9]></video><![endif]-->
+
+				<img class="img-fluid" src="{{ image_mobile }}" alt="{{ Image(post.custom['image_preview_bg_img_mobile']).alt }}" typeof="foaf:Image">
+			</picture>
+		{% endif %}
+
+		<div class="info">
+			<div class="info-wrapper">
+				<div class="title-category">
+					<h2 class="h2 title"><a href="{{post.link}}">{{post.title}}</a></h2>
+					<div class="category">{{ post.category }}</div>
+				</div>
+
+				<hr class="divider">
+
+				<div class="date-author">
+					<div class="date">{{ post.date }}</div>
+					<div class="author">By {{ post.author }}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
