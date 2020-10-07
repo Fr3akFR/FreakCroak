@@ -15,9 +15,12 @@
     .info-content {
       box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 4px 5px 0 rgba(0, 0, 0, 0.14);
       background-color: #fafafa;
+      height: 100%;
+      position: relative;
 
       .image {
         position: relative;
+        min-height: 44px;
 
         .category {
           position: absolute;
@@ -66,31 +69,33 @@
           padding: 0 20px 0;
         }
 
-        .cta {
-          display: inline-block;
-          width: 100%;
-          color: white;
-          text-align: center;
-          background: -webkit-linear-gradient(left, #0c4680, #5355a1);
-          background: -o-linear-gradient(left, #0c4680, #5355a1);
-          background: linear-gradient(to right, #0c4680, #5355a1);
-          text-decoration: none;
-          padding: 10px;
-
-          &:hover {
-            background: -webkit-linear-gradient(left, #5355a1, #0c4680);
-            background: -o-linear-gradient(left, #5355a1, #0c4680);
-            background: linear-gradient(to right, #5355a1, #0c4680);
-          }
-        }
-
         * + * {
           margin-top: 10px;
         }
+      }
 
-        * + .cta {
-          margin-top: 86px;
+      .cta {
+        display: inline-block;
+        width: 100%;
+        color: white;
+        text-align: center;
+        background: -webkit-linear-gradient(left, #0c4680, #5355a1);
+        background: -o-linear-gradient(left, #0c4680, #5355a1);
+        background: linear-gradient(to right, #0c4680, #5355a1);
+        text-decoration: none;
+        padding: 10px;
+        position: absolute;
+        bottom: 0;
+
+        &:hover {
+          background: -webkit-linear-gradient(left, #5355a1, #0c4680);
+          background: -o-linear-gradient(left, #5355a1, #0c4680);
+          background: linear-gradient(to right, #5355a1, #0c4680);
         }
+      }
+
+      * + .cta-container {
+        margin-top: 130px;
       }
     }
   }

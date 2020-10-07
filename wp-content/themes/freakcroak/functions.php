@@ -470,14 +470,10 @@ endif;
  *
  * @since v1.0
  */
-if ( function_exists( 'register_nav_menus' ) ) {
-	register_nav_menus(
-		array(
-			'main-menu'   => 'Main Navigation Menu',
-			'footer-menu' => 'Footer Menu',
-		)
-	);
-}
+register_nav_menus([
+	'main-menu'   => 'Main Navigation Menu',
+	'footer-menu' => 'Footer Menu',
+]);
 
 // Custom Nav Walker: wp_bootstrap4_navwalker()
 $custom_walker = get_template_directory() . '/inc/wp_bootstrap_navwalker.php';

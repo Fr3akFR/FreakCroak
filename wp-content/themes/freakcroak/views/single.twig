@@ -3,78 +3,12 @@
 {% block content %}
 	<div class="content-wrapper">
 		<article class="post-type-{{ post.post_type }}" id="post-{{ post.ID }}">
-			{#
-					<img src="{{ post.thumbnail.src|resize(1200, 300) }}">
-			#}
 			<section class="article-content">
 				<h1 class="d-none">{{ post.title }}</h1>
-				{#
-					<a href="{{ post.link }}">{{ _e('edit') }}</a>
-					<p class="blog-author">
-						<span>By</span><a href="{{post.author.path}}"> {{ post.author.name }} </a><span>&bull;</span> <time datetime="{{ post.date|date('Y-m-d H:i:s') }}">{{ post.date }}</time>
-					</p>
-				#}
 				<div class="article-body">
-
-					{% set hero_img_desktop = function( 'wp_get_attachment_url', post.hero_blog_bg_img_desktop) %}
-					{% set hero_img_tablet_ldscp = function( 'wp_get_attachment_url', post.hero_blog_bg_img_tablet_ldscp) %}
-					{% set hero_img_tablet = function( 'wp_get_attachment_url', post.hero_blog_bg_img_tablet) %}
-					{% set hero_img_mobile = function( 'wp_get_attachment_url', post.hero_blog_bg_img_mobile) %}
-
-					{% if hero_img_desktop or hero_img_tablet_ldscp or hero_img_tablet or hero_img_mobile %}
-						<div class="hero-blog-detail-block">
-							<picture class="background-image">
-								<!--[if IE 9]><video style="display: none;"><![endif]-->
-								<source srcset="{{ hero_img_desktop }}" media="(min-width: 1440px)">
-								<source srcset="{{ hero_img_tablet_ldscp }}" media="(min-width: 1024px) and (max-width: 1439px)">
-								<source srcset="{{ hero_img_tablet }}" media="(min-width: 768px) and (max-width: 1023px)">
-								<source srcset="{{ hero_img_mobile }}" media="(max-width: 767px)">
-								<!--[if IE 9]></video><![endif]-->
-								<img src="{{ hero_img_mobile }}" alt="{{ post.title }}" class="" typeof="foaf:Image">
-							</picture>
-						</div>
-					{% endif %}
-
-					<div class="anchored-section-link">
-						<div class="section-left">
-							<div class="title-block">In this post</div>
-						</div>
-						<div class="section-right">
-							<div class="limiter">
-								<div class="title-post h1">{{ post.title }}</div>
-								<div class="date" data-date="{{ post.date }}">{{ post.date }}</div>
-								<div class="author">By {{ post.author.name }}</div>
-
-								<div class="content">
-									{{post.content}}
-								</div>
-							</div>
-						</div>
-					</div>
+					{{post.content}}
 				</div>
 			</section>
-
-			{#
-				<!-- comment box -->
-				<section class="comment-box">
-					<!-- comments -->
-					<div class="comments">
-							{% if post.comments %}
-						<h3> comments </h3>
-						{% for cmt in post.comments %}
-								{% include "comment.twig" with {comment:cmt} %}
-						{% endfor %}
-							{% endif %}
-					</div>
-
-					{% if post.comment_status == "closed" %}
-						<p> comments for this post are closed </p>
-					{% else %}
-							<!-- comment form -->
-							{% include "comment-form.twig" %}
-					{% endif %}
-				</section>
-			#}
 		</article>
-	</div><!-- /content-wrapper -->
+	</div>
 {% endblock %}

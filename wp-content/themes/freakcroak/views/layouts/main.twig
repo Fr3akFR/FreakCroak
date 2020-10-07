@@ -22,15 +22,29 @@
     {{ function('wp_head') }}
   </head>
 
-  {# Set Default Main Menu is not defined #}
-  {% if not main_menu %}
-    {% set main_menu = 'primary' %}
-  {% endif %}
-
   <body {{ function('body_class') }}>
     <div id="{{ function('get_post_type') }}-{{ function('the_ID') }}">
 
-      <header id="site-header">
+      <header class="container-fluid">
+          {% if function('get_theme_mod', 'navigationbar-callout-display') == 'Yes' %}
+            <div class="logo">
+              <a class="brand-logo" href="/"><img src={{ function('wp_get_attachment_url', function('get_theme_mod', 'navigationbar-callout-image'))}} alt="Solve IQ Logo"></a>
+            </div>
+            {% else %}
+            <div class="logo">
+              <a class="brand-logo" href="/">{{ function('bloginfo', 'name')}}</a>
+            </div>
+          {% endif %}
+
+        <nav role="navigation" class="section-menu">
+          {{ function('wp_nav_menu', {
+            'theme_location'    : 'main-menu',
+            'depth'             : 2,
+            'menu_class'        : 'nav',
+            'fallback_cb'       : 'WP_Bootstrap_Navwalker::fallback',
+            'walker'            : WP_Bootstrap_Navwalker,
+          }) }}
+        </nav>
       </header>
 
         {% block content %}
