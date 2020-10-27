@@ -15,7 +15,11 @@
             {% endif %}
             <div class="col-12 col-md-6 col-lg-4 {{ lenght }} d-flex flex-column align-items-center item">
               <button class="circled-image">
-                <img src="{{ item.circled_image.url }}" alt="{{ item.circled_image.alt }}" width="180" height="180">
+                <picture>
+                  <source srcset="{{ item.circled_image.url }}.webp" media="all" type="image/webp">
+                  <source srcset="{{ item.circled_image.url }}" media="all" type="image/jpeg">
+                  <img src="{{ item.circled_image.url }}" alt="{{ item.circled_image.alt }}" typeof="foaf:Image">
+                </picture>
               </button>
               <div class="body">{{ item.text }}</div>
             </div>
